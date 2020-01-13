@@ -115,16 +115,27 @@ void SettingsWidget::Load()
 
 void SettingsWidget::onClickButtonRestart(bool bClicked)
 {
-	// TODO 重启服务端程序
-
 	//Qt开源库， 通过QProcess启动系统命令“tasklist.exe”, 获取正在运行的进程
 	QProcess process;
 	// notepad.exe 为需要关闭的进程名
 	QString c = "taskkill /im BatteryCabinetServer.exe /f";
-	process.execute(c);
+	int result = process.execute(c);
+
+	if (result == -2 || result == -1)
+	{
+		QMessageBox::critical(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("关闭服务失败"));
+	}
+
 	process.close();
 
-	QProcess::startDetached("BatteryCabinetServer.exe", QStringList());
+	if (QProcess::startDetached("BatteryCabinetServer.exe", QStringList()))
+	{
+		QMessageBox::information(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("服务已重启"));
+	}
+	else
+	{
+		QMessageBox::critical(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("启动服务失败"));
+	}
 
 	return;
 }
