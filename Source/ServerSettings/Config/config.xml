@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-    <Database Host="192.168.1.179" User="sa" Name="BatteryDB" Password="admin"/>
-    <Server Port="10086" IP="192.168.1.179"/>
-</config>

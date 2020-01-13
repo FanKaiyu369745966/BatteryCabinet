@@ -2,6 +2,8 @@
 #include <QLayout>
 #include <QMessageBox>
 #include <QtNetwork/QHostAddress>
+#include <QSharedMemory>
+//#include "tlhelp32.h"
 
 SettingsWidget::SettingsWidget(QWidget* parent)
 	: QWidget(parent)
@@ -113,7 +115,17 @@ void SettingsWidget::Load()
 
 void SettingsWidget::onClickButtonRestart(bool bClicked)
 {
-	// TODO 重启服务端程序 
+	// TODO 重启服务端程序
+
+	//Qt开源库， 通过QProcess启动系统命令“tasklist.exe”, 获取正在运行的进程
+	QProcess process;
+	// notepad.exe 为需要关闭的进程名
+	QString c = "taskkill /im BatteryCabinetServer.exe /f";
+	process.execute(c);
+	process.close();
+
+	QProcess::startDetached("BatteryCabinetServer.exe", QStringList());
+
 	return;
 }
 
