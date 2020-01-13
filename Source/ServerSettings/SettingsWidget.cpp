@@ -16,7 +16,7 @@ SettingsWidget::SettingsWidget(QWidget* parent)
 
 void SettingsWidget::Initialize()
 {
-	setWindowTitle(QString::fromLocal8Bit("电池柜服务端配置"));
+	setWindowTitle(QString::fromLocal8Bit("电池柜服务端环境配置"));
 
 	QVBoxLayout* _vlayout = new QVBoxLayout();
 

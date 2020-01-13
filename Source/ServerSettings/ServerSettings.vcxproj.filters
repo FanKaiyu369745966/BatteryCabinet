@@ -37,6 +37,9 @@
     <ClCompile Include="NetSettingsWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SettingsWidget.h">
@@ -48,6 +51,9 @@
     <QtMoc Include="NetSettingsWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="SettingsWidget.ui">
@@ -57,6 +63,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="NetSettingsWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="mainwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
