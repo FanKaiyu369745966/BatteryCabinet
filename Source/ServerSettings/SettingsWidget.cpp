@@ -16,7 +16,8 @@ SettingsWidget::SettingsWidget(QWidget* parent)
 
 void SettingsWidget::Initialize()
 {
-	setWindowTitle(QString::fromLocal8Bit("电池柜服务端环境配置"));
+//	setWindowTitle(QString::fromLocal8Bit("电池柜服务端环境配置"));
+    setWindowTitle("电池柜服务端环境配置");
 
 	QVBoxLayout* _vlayout = new QVBoxLayout();
 
@@ -24,8 +25,10 @@ void SettingsWidget::Initialize()
 	m_dbSettings = new DatabaseSettingsWidget(this);
 	m_netSettings = new NetSettingsWidget(this);
 
-	QPushButton* _butSubmit = new QPushButton(QString::fromLocal8Bit("提交修改"), this);
-	QPushButton* _butRestart = new QPushButton(QString::fromLocal8Bit("重启服务端"), this);
+//	QPushButton* _butSubmit = new QPushButton(QString::fromLocal8Bit("提交修改"), this);
+//	QPushButton* _butRestart = new QPushButton(QString::fromLocal8Bit("重启服务端"), this);
+    QPushButton* _butSubmit = new QPushButton("提交修改",this);
+    QPushButton* _butRestart = new QPushButton("重启服务端",this);
 
 	QObject::connect(_butSubmit, &QPushButton::clicked, this, &SettingsWidget::onClickButtonSumbit);
 	QObject::connect(_butRestart, &QPushButton::clicked, this, &SettingsWidget::onClickButtonRestart);
@@ -40,9 +43,12 @@ void SettingsWidget::Initialize()
 	QWidget* w = new QWidget(this);
 	w->setLayout(_vlayoutNet);
 
-	_tab->addTab(m_dbSettings, QString::fromLocal8Bit("数据库"));
-	_tab->addTab(m_netSettings, QString::fromLocal8Bit("网络"));
-	_tab->addTab(w, QString::fromLocal8Bit("系统"));
+//	_tab->addTab(m_dbSettings, QString::fromLocal8Bit("数据库"));
+//	_tab->addTab(m_netSettings, QString::fromLocal8Bit("网络"));
+//	_tab->addTab(w, QString::fromLocal8Bit("系统"));
+    _tab->addTab(m_dbSettings, "数据库");
+    _tab->addTab(m_netSettings, "网络");
+    _tab->addTab(w, "系统");
 
 	_tab->setTabPosition(QTabWidget::West);
 
@@ -123,18 +129,23 @@ void SettingsWidget::onClickButtonRestart(bool bClicked)
 
 	if (result == -2 || result == -1)
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("关闭服务失败"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("关闭服务失败"));
+        QMessageBox::critical(this, "重启", "关闭服务失败");
+
+        return;
 	}
 
 	process.close();
 
 	if (QProcess::startDetached("BatteryCabinetServer.exe", QStringList()))
 	{
-		QMessageBox::information(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("服务已重启"));
+//		QMessageBox::information(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("服务已重启"));
+        QMessageBox::information(this, "重启", "服务已重启");
 	}
 	else
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("启动服务失败"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("重启"), QString::fromLocal8Bit("启动服务失败"));
+        QMessageBox::critical(this, "重启", "启动服务失败");
 	}
 
 	return;
@@ -144,7 +155,8 @@ void SettingsWidget::onClickButtonSumbit(bool bClicked)
 {
 	if (m_dbSettings->IsTested() == false)
 	{
-		QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("提交失败。原因:数据库连接未经过测试。"));
+//		QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("提交失败。原因:数据库连接未经过测试。"));
+        QMessageBox::information(this, "提交修改", "提交失败。原因:数据库连接未经过测试。");
 
 		return;
 	}
@@ -153,7 +165,8 @@ void SettingsWidget::onClickButtonSumbit(bool bClicked)
 
 	if (addr.toIPv4Address() == 0)
 	{
-		QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("提交失败。原因:网络IP地址不是一个有效的IPV4地址。"));
+//		QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("提交失败。原因:网络IP地址不是一个有效的IPV4地址。"));
+        QMessageBox::information(this, "提交修改", "提交失败。原因:网络IP地址不是一个有效的IPV4地址。");
 
 		return;
 	}
@@ -203,7 +216,8 @@ void SettingsWidget::onClickButtonSumbit(bool bClicked)
 	doc.save(out_stream, 4); //缩进4格
 	file.close();
 
-	QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("修改已经提交，重启服务端后生效。"));
+//	QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("修改已经提交，重启服务端后生效。"));
+    QMessageBox::information(this, "提交修改", "修改已经提交，重启服务端后生效。");
 
 	return;
 }

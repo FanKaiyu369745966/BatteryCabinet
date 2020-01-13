@@ -6,7 +6,8 @@ mainwindow::mainwindow(QWidget* parent)
 {
 	ui.setupUi(this);
 
-	setWindowTitle(QString::fromLocal8Bit("电池柜服务端环境配置"));
+//	setWindowTitle(QString::fromLocal8Bit("电池柜服务端环境配置"));
+    setWindowTitle("电池柜服务端环境配置");
 
 	setCentralWidget(new SettingsWidget(this));
 }

@@ -1,0 +1,10 @@
+release/DatabaseSettingsWidget.o
+release/main.o
+release/mainwindow.o
+release/NetSettingsWidget.o
+release/SettingsWidget.o
+release/qrc_SettingsWidget.o
+release/moc_SettingsWidget.o
+release/moc_DatabaseSettingsWidget.o
+release/moc_NetSettingsWidget.o
+release/moc_mainwindow.o

@@ -1,0 +1,10 @@
+debug/DatabaseSettingsWidget.o
+debug/main.o
+debug/mainwindow.o
+debug/NetSettingsWidget.o
+debug/SettingsWidget.o
+debug/qrc_SettingsWidget.o
+debug/moc_SettingsWidget.o
+debug/moc_DatabaseSettingsWidget.o
+debug/moc_NetSettingsWidget.o
+debug/moc_mainwindow.o

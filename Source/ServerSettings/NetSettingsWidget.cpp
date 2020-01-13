@@ -20,8 +20,10 @@ NetSettingsWidget::~NetSettingsWidget()
 
 void NetSettingsWidget::Initialize()
 {
-	QLabel* _labIp = new QLabel(QString::fromLocal8Bit("IP地址:"), this);
-	QLabel* _labPort = new QLabel(QString::fromLocal8Bit("端口:"), this);
+//	QLabel* _labIp = new QLabel(QString::fromLocal8Bit("IP地址:"), this);
+//	QLabel* _labPort = new QLabel(QString::fromLocal8Bit("端口:"), this);
+    QLabel* _labIp = new QLabel("IP地址:", this);
+    QLabel* _labPort = new QLabel("端口:", this);
 
 	_labIp->setAlignment(Qt::AlignRight | Qt::AlignHCenter | Qt::AlignVCenter);
 	_labPort->setAlignment(Qt::AlignRight | Qt::AlignHCenter | Qt::AlignVCenter);

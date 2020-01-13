@@ -23,17 +23,22 @@ DatabaseSettingsWidget::~DatabaseSettingsWidget()
 
 void DatabaseSettingsWidget::Initialize()
 {
-	QPushButton* _butTest = new QPushButton(QString::fromLocal8Bit("测试连接"), this);
+//	QPushButton* _butTest = new QPushButton(QString::fromLocal8Bit("测试连接"), this);
+    QPushButton* _butTest = new QPushButton("测试连接", this);
 	//QPushButton* _butSubmit = new QPushButton(QString::fromLocal8Bit("设置"), this);
 
 	_butTest->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 	//_butSubmit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
-	//m_labConn = new QLabel(this);
-	QLabel* _labDBHost = new QLabel(QString::fromLocal8Bit("数据库主机名:"), this);
-	QLabel* _labDBName = new QLabel(QString::fromLocal8Bit("数据库名:"), this);
-	QLabel* _labDBUser = new QLabel(QString::fromLocal8Bit("用户名:"), this);
-	QLabel* _labDBPassword = new QLabel(QString::fromLocal8Bit("密码:"), this);
+    //m_labConn = new QLabel(this);
+//    QLabel* _labDBHost = new QLabel(QString::fromLocal8Bit("数据库主机名:"), this);
+//    QLabel* _labDBName = new QLabel(QString::fromLocal8Bit("数据库名:"), this);
+//    QLabel* _labDBUser = new QLabel(QString::fromLocal8Bit("用户名:"), this);
+//    QLabel* _labDBPassword = new QLabel(QString::fromLocal8Bit("密码:"), this);
+    QLabel* _labDBHost = new QLabel("数据库主机名:", this);
+    QLabel* _labDBName = new QLabel("数据库名:", this);
+    QLabel* _labDBUser = new QLabel("用户名:", this);
+    QLabel* _labDBPassword = new QLabel("密码:", this);
 
 	_labDBHost->setAlignment(Qt::AlignRight | Qt::AlignHCenter | Qt::AlignVCenter);
 	_labDBName->setAlignment(Qt::AlignRight | Qt::AlignHCenter | Qt::AlignVCenter);
@@ -166,25 +171,29 @@ void DatabaseSettingsWidget::onClickButtonTest(bool bClicked)
 	if (host.isNull() || host.isEmpty()
 		)
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写数据库主机名"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写数据库主机名"));
+        QMessageBox::critical(this, "错误", "请填写数据库主机名");
 		return;
 	}
 
 	if (name.isNull() || name.isEmpty())
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写数据库名称"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写数据库名称"));
+        QMessageBox::critical(this, "错误", "请填写数据库名称");
 		return;
 	}
 
 	if (user.isNull() || user.isEmpty())
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写用户名"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写用户名"));
+        QMessageBox::critical(this, "错误", "请填写用户名");
 		return;
 	}
 
 	if (password.isNull() || password.isEmpty())
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写密码"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("请填写密码"));
+        QMessageBox::critical(this, "错误", "请填写密码");
 		return;
 	}
 
@@ -197,7 +206,8 @@ void DatabaseSettingsWidget::onClickButtonTest(bool bClicked)
 	if (m_db.open())
 	{
 		//m_labConn->setText(QString::fromLocal8Bit("连接成功"));
-		QMessageBox::information(this, QString::fromLocal8Bit("测试连接"), QString::fromLocal8Bit("连接成功"));
+//		QMessageBox::information(this, QString::fromLocal8Bit("测试连接"), QString::fromLocal8Bit("连接成功"));
+        QMessageBox::information(this, "测试连接", "连接成功");
 
 		m_strHost = host;
 		m_strName = name;
@@ -209,7 +219,8 @@ void DatabaseSettingsWidget::onClickButtonTest(bool bClicked)
 	else
 	{
 		//m_labConn->setText(QString::fromLocal8Bit("连接失败。原因:%1").arg(m_db.lastError().text()));
-		QMessageBox::critical(this, QString::fromLocal8Bit("测试连接"), QString::fromLocal8Bit("连接失败。原因:%1").arg(m_db.lastError().text()));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("测试连接"), QString::fromLocal8Bit("连接失败。原因:%1").arg(m_db.lastError().text()));
+        QMessageBox::critical(this, "测试连接", QString("连接失败。原因:%1").arg(m_db.lastError().text()));
 
 		m_bTested = false;
 	}
@@ -243,25 +254,29 @@ void DatabaseSettingsWidget::onClickButtonSumbit(bool bClicked)
 	if (m_strHost.isNull() || m_strHost.isEmpty()
 		)
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置数据库主机名"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置数据库主机名"));
+        QMessageBox::critical(this, "错误", "未设置数据库主机名");
 		return;
 	}
 
 	if (m_strName.isNull() || m_strName.isEmpty())
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置数据库名称"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置数据库名称"));
+        QMessageBox::critical(this, "错误", "未设置数据库名称");
 		return;
 	}
 
 	if (m_strUser.isNull() || m_strUser.isEmpty())
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置用户名"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置用户名"));
+        QMessageBox::critical(this, "错误", "未设置用户名");
 		return;
 	}
 
 	if (m_strPassword.isNull() || m_strPassword.isEmpty())
 	{
-		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置密码"));
+//		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未设置密码"));
+        QMessageBox::critical(this, "错误", "未设置密码");
 		return;
 	}
 
