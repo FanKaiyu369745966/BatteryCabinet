@@ -50,7 +50,7 @@ bool QService::Start()
 
 			if (name == "Database")
 			{
-				QString serverName = e.attribute("Source");
+				QString serverName = e.attribute("Host");
 				QString databaseName = e.attribute("Name");
 				QString loginName = e.attribute("User");
 				QString passwd = e.attribute("Password");

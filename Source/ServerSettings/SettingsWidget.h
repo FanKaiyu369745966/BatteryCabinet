@@ -31,6 +31,8 @@ private:
 	 */
 	void Initialize();
 
+	void Load();
+
 private slots:
 	/*!
 	 * @brief 点击重启服务端按钮触发的槽函数

@@ -1,6 +1,7 @@
 ﻿#include "SettingsWidget.h"
 #include <QLayout>
 #include <QMessageBox>
+#include <QtNetwork/QHostAddress>
 
 SettingsWidget::SettingsWidget(QWidget* parent)
 	: QWidget(parent)
@@ -46,6 +47,67 @@ void SettingsWidget::Initialize()
 	_vlayout->addWidget(_tab);
 	setLayout(_vlayout);
 
+	Load();
+
+	return;
+}
+
+void SettingsWidget::Load()
+{
+	QFile file("Config/config.xml");
+	if (!file.open(QFile::ReadOnly))
+	{
+		return;
+	}
+
+	QDomDocument doc;
+	QString strError;
+	if (!doc.setContent(&file, &strError))
+	{
+		qDebug() << strError << endl;
+		file.close();
+		return;
+	}
+
+	file.close();
+
+	QDomElement root = doc.documentElement(); //返回根节点
+
+	QDomNode node = root.firstChild(); //获得第一个子节点
+
+	while (!node.isNull())  //如果节点不空
+	{
+		if (node.isElement()) //如果节点是元素
+		{
+			QDomElement e = node.toElement(); //转换为元素，注意元素和节点是两个数据结构，其实差不多
+
+			QString name = e.tagName();
+
+			if (name == "Database")
+			{
+				QString serverName = e.attribute("Host");
+				QString databaseName = e.attribute("Name");
+				QString loginName = e.attribute("User");
+				QString passwd = e.attribute("Password");
+
+				m_dbSettings->SetDefaultHost(serverName);
+				m_dbSettings->SetDefaultName(databaseName);
+				m_dbSettings->SetDefaultUser(loginName);
+				m_dbSettings->SetDefaultPassword(passwd);
+			}
+			else if (name == "Server")
+			{
+				QString ip = e.attribute("IP");
+				QString port = e.attribute("Port");
+
+				m_netSettings->SetIp(ip);
+				m_netSettings->SetPort(port.toInt());
+			}
+		}
+
+		node = node.nextSibling(); //下一个兄弟节点,nextSiblingElement()是下一个兄弟元素，都差不多
+	}
+
 	return;
 }
 
@@ -60,6 +122,15 @@ void SettingsWidget::onClickButtonSumbit(bool bClicked)
 	if (m_dbSettings->IsTested() == false)
 	{
 		QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("提交失败。原因:数据库连接未经过测试。"));
+
+		return;
+	}
+
+	QHostAddress addr(m_netSettings->ip());
+
+	if (addr.toIPv4Address() == 0)
+	{
+		QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("提交失败。原因:网络IP地址不是一个有效的IPV4地址。"));
 
 		return;
 	}
@@ -81,8 +152,33 @@ void SettingsWidget::onClickButtonSumbit(bool bClicked)
 	db.setAttribute("Password", m_dbSettings->password());
 
 	QDomElement server = doc.createElement("Server");
-	server.setAttribute("IP", );
-	server.setAttribute("Port", );
+	server.setAttribute("IP", m_netSettings->ip());
+	server.setAttribute("Port", m_netSettings->port());
+
+	root.appendChild(db);
+	root.appendChild(server);
+
+	//打开或创建文件
+	QString path = "Config";
+	QDir dir; //相对路径、绝对路径、资源路径都可以
+	if (dir.exists(path) == false && dir.mkpath(path) == false)
+	{
+		return;
+	}
+
+	path = "Config/config.xml";
+
+	QFile file(path);
+
+	if (!file.open(QFile::WriteOnly | QFile::Truncate)) //可以用QIODevice，Truncate表示清空原来的内容
+	{
+		return;
+	}
+
+	//输出到文件
+	QTextStream out_stream(&file);
+	doc.save(out_stream, 4); //缩进4格
+	file.close();
 
 	QMessageBox::information(this, QString::fromLocal8Bit("提交修改"), QString::fromLocal8Bit("修改已经提交，重启服务端后生效。"));
 
