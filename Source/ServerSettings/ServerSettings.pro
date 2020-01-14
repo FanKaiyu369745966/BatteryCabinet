@@ -3,8 +3,8 @@
 # ------------------------------------------------------
 
 TEMPLATE = app
-TARGET = ServerSettings
-DESTDIR = ../../Exe
+TARGET = BatteryCabinetServerSettings
+DESTDIR = ../../Build
 QT += core gui network sql widgets xml
 CONFIG += debug
 LIBS += -L"."

@@ -24,6 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+DESTDIR = ../../Build
+LIBS += -L"."
+DEPENDPATH += .
+MOC_DIR += .
+OBJECTS_DIR += debug
+UI_DIR += .
+RCC_DIR += .
+
 RC_FILE = logo.rc
 
 SOURCES += \
